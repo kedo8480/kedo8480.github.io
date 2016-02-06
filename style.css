@@ -3,7 +3,7 @@
 */
 p{ line-height: 1em; }
 h1, h2, h3, h4{
-    color: orange;
+    color: purple;
 	font-weight: normal;
 	line-height: 1.1em;
 	margin: 0 0 .5em 0;
@@ -20,7 +20,7 @@ a{
 /* you can structure your code's white space so that it is as readable for when you come back in the future or for other people to read and edit quickly */
 
 body{
-    font-family: arial; font-size: 80%; line-height: 1.2em; width: 100%; margin: 0; background: #eee;
+    font-family: arial; font-size: 100%; line-height: 1.2em; width: 100%; margin: 0; background: #eee;
 }
 /* you can put your code all in one line like above */
 #page{ margin: 20px; }
