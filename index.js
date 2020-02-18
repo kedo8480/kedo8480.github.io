@@ -43,6 +43,21 @@ if (videoWorks) {
    videoControls.classList.remove('hidden');
 }
 
+if ($badger) {
+    console.log("badger exists");
+    if ($badger.active()) {
+        console.log("badger active");
+    }
+} else {
+    document.addEventListener('onMoneyBadgerReady', () => {
+        console.log("badger loaded");
+        video.play();
+        if ($badger.active()) {
+            console.log("hello there");
+        }
+    })
+}
+
 function togglePlay() {
     if (videoNotStarted == true){
         videoNotStarted = false;
