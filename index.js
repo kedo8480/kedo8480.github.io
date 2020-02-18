@@ -58,6 +58,13 @@ if ($badger) {
     })
 }
 
+document.addEventListener("keypress", function(event) {
+    if (event.keyCode == 179) {
+        console.log("HI");
+        togglePlay();
+    }
+})
+
 function togglePlay() {
     if (videoNotStarted == true){
         videoNotStarted = false;
