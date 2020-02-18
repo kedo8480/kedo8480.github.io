@@ -59,7 +59,7 @@ if ($badger) {
 }
 
 document.addEventListener("keypress", function(event) {
-    if (event.keyCode == 49) {
+    if (event.keyCode == 13 || 179) {
         console.log("HI");
         togglePlay();
     }
