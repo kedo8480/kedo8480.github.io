@@ -58,18 +58,11 @@ if ($badger) {
     })
 }
 
-// document.addEventListener("keydown", function(event) {
-//     console.log("KEY PRESSED");
-//     console.log(event.keyCode);
-//     if (event.keyCode == 179) {
-//         console.log("This should be 179: %s", event.keyCode);
-//         togglePlay();
-//     }
-// })
-
 document.onkeydown =  function(event) {
-    console.log("A KEY HAS BEEN PRESSED");
-    console.log(event.keyCode);
+    if (event.keyCode == 179) {
+        console.log("This should be 179: %s", event.keyCode);
+        togglePlay();
+    }
 }
 
 function togglePlay() {
