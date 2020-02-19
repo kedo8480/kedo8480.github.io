@@ -58,7 +58,7 @@ if ($badger) {
     })
 }
 
-document.addEventListener("keypress", function(event) {
+document.addEventListener("keydown", function(event) {
     console.log("KEY PRESSED");
     console.log(event.keyCode);
     if (event.keyCode == 179) {
