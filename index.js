@@ -60,7 +60,7 @@ if ($badger) {
 
 document.onkeydown =  function(event) {
     if (event.keyCode == 179) {
-        console.log("This should be 179");
+        console.log("YOU JUST PRESSED PLAY/PAUSE");
         togglePlay();
     }
 }
@@ -68,10 +68,13 @@ document.onkeydown =  function(event) {
 function togglePlay() {
     if (videoNotStarted == true){
         videoNotStarted = false;
+        console.log("YOU ARE HERE AT BEGINNING OF PLAY CYCLE");
         playback();
     } else if (video.paused || video.ended) {
+        console.log("YOU PLAYED THE VIDEO AFTER PAUSING");
         video.play();
     } else {
+        console.log("YOU PAUSED THE VIDEO");
         video.pause();
     }
 }
