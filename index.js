@@ -60,7 +60,7 @@ if ($badger) {
 
 document.onkeydown =  function(event) {
     if (event.keyCode == 179) {
-        console.log("This should be 179: %s", event.keyCode);
+        console.log("This should be 179");
         togglePlay();
     }
 }
@@ -212,8 +212,10 @@ function onRequestComplete(event) {
 
 function playback() {
     if (prerollSlots.length) {
+        console.log("\nGOING TO PLAY PREROLL\n");
         playPreroll();
     } else {
+        console.log("\nGOING TO PLAY CONTENT FROM PLAYBACK\n");
         playContent();
     }
 }
@@ -224,6 +226,7 @@ function playPreroll() {
         videoControls.hidden = true;
         prerollSlots.shift().play();
     } else  {
+        console.log("\nGOING TO PLAY CONTENT FROM PREROLL\n");
         playContent();
     }
 }
@@ -239,6 +242,7 @@ function playPostroll() {
 }
 
 function playContent() {
+    console.log("\nINSIDE PLAY CONTENT\n");
     videoControls.hidden = false;
     video.src = contentSrc;
     console.log("\n==============playing content==============\n");
