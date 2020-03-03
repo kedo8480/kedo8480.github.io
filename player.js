@@ -86,7 +86,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		     		postrollSlots.push(slot);
 		     	}
 			}
-			$("#start").attr('disabled', false);
 		}
 	},
 
@@ -136,7 +135,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 		videoElement.play();
-		$("#start").attr('disabled', false);
 	},
 
 	resumeContentAfterMidroll: function() {
@@ -156,7 +154,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Play postroll(s) if exits, otherwise cleanup
 		if (postrollSlots.length) {
 			console.log("\n==============playing postroll==============\n");
-			$("#start").attr('disabled', true);
 			postrollSlots.shift().play();
 		} else {
 			this.cleanUp();
@@ -202,7 +199,6 @@ tv.freewheel.DemoPlayer.prototype = {
 				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
 				contentState = "VIDEO_STATE_PAUSED";
 				midrollSlots.splice(i, 1);
-				$("#start").attr('disabled', true);
 				midrollSlot.play();
 				return;
 			}
@@ -216,7 +212,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		if (contentState === "VIDEO_STATE_PLAYING") {
 			console.log("\n==============content ended==============\n");
 			videoElement.removeEventListener('ended', this.onContentVideoEnded.bind(this));
-			$('#videoPlayer').attr('controls', false);
 			currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_COMPLETED);
 			this.contentState = tv.freewheel.SDK.VIDEO_STATE_COMPLETED
 			if(postrollSlots.length){
