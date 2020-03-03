@@ -14,7 +14,7 @@
             margin-top: 20px;
         }
     	#videoPlayer {
-    		height: 480px;
+    		height: 100%;
     		width: 100%;
     		background-color: #000;
     	}
@@ -34,19 +34,13 @@
   <body>
     <div style="margin: 20px">
         <div class="row">
-        	<div class="col-lg-6" id="leftPanel">
-        		<div id="displayBase">
-	        		<video id="videoPlayer" poster="poster.jpg">
-                        <source src="video.mp4" type="video/mp4"></source>
-	        		</video>
-                    <div>
-                        <button id="start" class="btn btn-info" style="width: 100%;" disabled>Play</button>
-                    </div>
-	        	</div>
-        	</div>
+            <div id="displayBase">
+                <video id="videoPlayer" poster="poster.jpg">
+                    <source src="video.mp4" type="video/mp4"></source>
+                </video>
+            </div>
         </div>
     </div>
-    <footer>&copy; 2013 <a href="http://freewheel.tv" target="_blank">FreeWheel Media Inc.</a></footer>
 	<script type="text/javascript">
     $(function() {
     	var player = new tv.freewheel.DemoPlayer();
