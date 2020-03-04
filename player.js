@@ -103,6 +103,10 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
+	fastForward: function() {
+		videoElement.playbackRate = 2;
+	},
+
 	// Step #5: Play preroll
 	playback: function() {
 		// Play preroll(s) if a preroll slot exits, otherwise play content
