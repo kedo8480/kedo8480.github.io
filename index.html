@@ -48,6 +48,8 @@
         document.addEventListener("keydown", event => {
             if (event.keyCode === 179) {
                 player.togglePlay();
+            } else if (event.keyCode === 228) {
+                player.fastForward();
             }
         });
     });

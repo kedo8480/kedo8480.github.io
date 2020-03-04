@@ -104,6 +104,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	},
 
 	fastForward: function() {
+		console.log("YOU ARE INSIDE FF");
 		videoElement.playbackRate = 4;
 	},
 
