@@ -106,13 +106,13 @@ tv.freewheel.DemoPlayer.prototype = {
 	},
 
 	videoSpeedHandler: function(event) {
-		console.log("***************A THING WAS PRESSED****************")
+		console.log("***************A THING WAS PRESSED****************");
 		if (event.keyCode === 179) {
-			player.togglePlay();
+			this.togglePlay();
 		} else if (event.keyCode === 228) {
-			player.fastForward();
+			this.fastForward();
 		} else if (event.keyCode === 227) {
-			player.rewind();
+			this.rewind();
 		}
 	},
 
