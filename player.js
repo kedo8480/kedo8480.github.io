@@ -163,9 +163,9 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
-		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime);
+		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		videoElement.currentTime = contentPausedOn;
-		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime);
+		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
 		contentState = "VIDEO_STATE_PLAYING";
@@ -215,6 +215,7 @@ tv.freewheel.DemoPlayer.prototype = {
 			var midrollSlot = midrollSlots[i];
 			var slotTimePosition = midrollSlot.getTimePosition();
 			var videoCurrentTime = videoElement.currentTime;
+			console.log("VIDEO CURRENT TIME: " + videoElement.currentTime);
 
 			if (Math.abs(videoCurrentTime - slotTimePosition) < 0.5) {
 				contentPausedOn = videoElement.currentTime;
