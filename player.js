@@ -165,6 +165,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		videoElement.src = contentSrc;
 		videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
+		console.log(videoElement.currentTime);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
