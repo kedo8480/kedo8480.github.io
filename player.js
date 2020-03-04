@@ -163,9 +163,10 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
+		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime);
 		videoElement.currentTime = contentPausedOn;
+		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime);
 		console.log("===========resume video after: " + contentPausedOn);
-		console.log(videoElement.currentTime);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
