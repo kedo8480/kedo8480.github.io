@@ -104,7 +104,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	},
 
 	fastForward: function() {
-		videoElement.playbackRate = 2;
+		videoElement.playbackRate = 4;
 	},
 
 	// Step #5: Play preroll
