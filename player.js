@@ -47,7 +47,7 @@ tv.freewheel.DemoPlayer.prototype = {
 
 		// Add 1 preroll, 1 midroll, 1 postroll slot
 		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
-		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 5);
+		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 10);
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
 		currentAdContext.addKeyValue("kelseyTargeting", "kdowd");
