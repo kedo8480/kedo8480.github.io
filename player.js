@@ -67,6 +67,8 @@ tv.freewheel.DemoPlayer.prototype = {
 
 		// Store corresponding content video state (PLAYING, COMPLETED, PAUSED)
 		contentState = "";
+
+		document.addEventListener("keydown", this.videoSpeedHandler.bind(this));
 	},
 
 	// Step #4: Listen for ad request completed and set all slot variables
@@ -103,9 +105,24 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
+	videoSpeedHandler: function(event) {
+		console.log("***************A THING WAS PRESSED****************")
+		if (event.keyCode === 179) {
+			player.togglePlay();
+		} else if (event.keyCode === 228) {
+			player.fastForward();
+		} else if (event.keyCode === 227) {
+			player.rewind();
+		}
+	},
+
 	fastForward: function() {
 		console.log("YOU ARE INSIDE FF");
 		videoElement.playbackRate = 4;
+	},
+
+	rewind: function() {
+		console.log("YOU ARE INSIDE REWIND");
 	},
 
 	// Step #5: Play preroll

@@ -45,13 +45,6 @@
     $(function() {
     	var player = new tv.freewheel.DemoPlayer();
         player.requestAds();
-        document.addEventListener("keydown", event => {
-            if (event.keyCode === 179) {
-                player.togglePlay();
-            } else if (event.keyCode === 228) {
-                player.fastForward();
-            }
-        });
     });
     </script>
   </body>
