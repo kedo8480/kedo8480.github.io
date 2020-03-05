@@ -164,7 +164,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
 		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
-		videoElement.currentTime = contentPausedOn;
+		videoElement.currentTime = 10;
 		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));

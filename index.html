@@ -38,6 +38,9 @@
                 <video controls id="videoPlayer" poster="poster.jpg" controls>
                     <source src="video.mp4" type="video/mp4"></source>
                 </video>
+                <div>
+                    <button id="start" class="btn btn-info" style="width: 100%;">Play</button>
+                </div>
             </div>
         </div>
     </div>
@@ -45,6 +48,9 @@
     $(function() {
     	var player = new tv.freewheel.DemoPlayer();
         player.requestAds();
+        $('#start').bind('click', function(evt){
+    		player.playback();
+    	});
     });
     </script>
   </body>
