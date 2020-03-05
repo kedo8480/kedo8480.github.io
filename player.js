@@ -47,7 +47,7 @@ tv.freewheel.DemoPlayer.prototype = {
 
 		// Add 1 preroll, 1 midroll, 1 postroll slot
 		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
-		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 10);
+		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 12);
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
 		currentAdContext.addKeyValue("kelseyTargeting", "kdowd");
@@ -164,7 +164,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
 		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
-		videoElement.currentTime = "10.00";
+		videoElement.currentTime = "12.00";
 		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
