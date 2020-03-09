@@ -69,12 +69,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		contentState = "";
 
 		document.addEventListener("keydown", this.videoSpeedHandler.bind(this));
-
-		rewindButton = document.getElementById("rewind");
-		fastForwardButton = document.getElementById("fastForward");
-		
-		rewindButton.addEventListener('click', this.rewind());
-		fastForwardButton.addEventListener('click', this.fastForward());
 	},
 
 	// Step #4: Listen for ad request completed and set all slot variables
