@@ -100,9 +100,11 @@ tv.freewheel.DemoPlayer.prototype = {
 			this.playback();
 		} else if (videoElement.paused || videoElement.ended) {
 			console.log("YOU PLAYED THE VIDEO AFTER PAUSING");
+			videoElement.playbackRate = 1.0;
 			videoElement.play();
 		} else {
 			console.log("YOU PAUSED THE VIDEO");
+			videoElement.playbackRate = 1.0;
 			videoElement.pause();
 		}
 	},
