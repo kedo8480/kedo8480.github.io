@@ -68,7 +68,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Store corresponding content video state (PLAYING, COMPLETED, PAUSED)
 		contentState = "";
 
-		document.addEventListener("keydown", this.videoSpeedHandler.bind(this));
+		videoElement.addEventListener("keydown", this.videoSpeedHandler.bind(this));
 	},
 
 	// Step #4: Listen for ad request completed and set all slot variables
@@ -138,7 +138,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	playPreroll: function() {
 		// Play preroll slot and then remove the played slot from preroll slot array
 		if (prerollSlots.length) {
-			document.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
+			videoElement.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
 			console.log("\n==============playing preroll==============\n");
 			prerollSlots.shift().play();
 		} else {
@@ -155,7 +155,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		console.log("\n==============playing content==============\n");
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
 		videoElement.addEventListener('timeupdate', this.onContentVideoTimeUpdated.bind(this));
-		document.addEventListener("keydown", this.videoSpeedHandler.bind(this));
+		videoElement.addEventListener("keydown", this.videoSpeedHandler.bind(this));
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 		videoElement.play();
@@ -170,7 +170,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
-		document.addEventListener("keydown", this.videoSpeedHandler.bind(this));
+		videoElement.addEventListener("keydown", this.videoSpeedHandler.bind(this));
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 		videoElement.play();
@@ -180,7 +180,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	playPostroll: function() {
 		// Play postroll(s) if exits, otherwise cleanup
 		if (postrollSlots.length) {
-			document.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
+			videoElement.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
 			console.log("\n==============playing postroll==============\n");
 			postrollSlots.shift().play();
 		} else {
@@ -224,7 +224,7 @@ tv.freewheel.DemoPlayer.prototype = {
 			if (Math.abs(videoCurrentTime - slotTimePosition) < 0.5) {
 				contentPausedOn = videoElement.currentTime;
 				videoElement.removeEventListener('ended', this.onContentVideoEnded.bind(this));
-				document.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
+				videoElement.removeEventListener("keydown", this.videoSpeedHandler.bind(this));
 				videoElement.pause();
 				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
 				contentState = "VIDEO_STATE_PAUSED";
