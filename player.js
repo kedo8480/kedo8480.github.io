@@ -100,33 +100,32 @@ tv.freewheel.DemoPlayer.prototype = {
 			this.playback();
 		} else if (videoElement.paused || videoElement.ended) {
 			console.log("YOU PLAYED THE VIDEO AFTER PAUSING");
-			videoElement.playbackRate = 1.0;
 			videoElement.play();
 		} else {
 			console.log("YOU PAUSED THE VIDEO");
-			videoElement.playbackRate = 1.0;
 			videoElement.pause();
 		}
 	},
 
 	videoSpeedHandler: function(event) {
 		console.log("***************A THING WAS PRESSED****************");
-		if (event.keyCode === 179) {
+		if (event.keyCode === 32) {
 			this.togglePlay();
-		} else if (event.keyCode === 228) {
+		} else if (event.keyCode === 39) {
 			this.fastForward();
-		} else if (event.keyCode === 227) {
+		} else if (event.keyCode === 37) {
 			this.rewind();
 		}
 	},
 
 	fastForward: function() {
 		console.log("YOU ARE INSIDE FF");
-		videoElement.playbackRate = 4;
+		videoElement.currentTime += 5;
 	},
 
 	rewind: function() {
 		console.log("YOU ARE INSIDE REWIND");
+		videoElement.currentTime -= 5;
 	},
 
 	// Step #5: Play preroll
@@ -207,9 +206,6 @@ tv.freewheel.DemoPlayer.prototype = {
 			console.log("==============previous midroll slot ended==============");
 			this.resumeContentAfterMidroll();
 		}
-
-		// Re-enable the play button after all slot ends
-		$("#start").attr('disabled', false);
 	},
 
 	onContentVideoTimeUpdated: function() {
