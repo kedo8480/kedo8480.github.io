@@ -38,6 +38,10 @@ tv.freewheel.DemoPlayer = function() {
 	currentAdContext.setSiteSection(theSiteSectionId);
 
 	this.videoSpeedHandler = this.videoSpeedHandler.bind(this);
+	this.onRequestComplete = this.onRequestComplete.bind(this);
+	this.onSlotEnded = this.onSlotEnded.bind(this);
+	this.onContentVideoTimeUpdated = this.onContentVideoTimeUpdated.bind(this);
+	this.onContentVideoEnded = this.onContentVideoEnded.bind(this);
 };
 
 tv.freewheel.DemoPlayer.prototype = {
@@ -61,8 +65,8 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Step #4: Submit ad request
 
 		// Listen to AdManager Events
-		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete.bind(this));
-		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded.bind(this));
+		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
+		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
 
 		// Submit ad request
 		currentAdContext.submitRequest();
@@ -156,8 +160,8 @@ tv.freewheel.DemoPlayer.prototype = {
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
 		console.log("\n==============playing content==============\n");
-		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
-		videoElement.addEventListener('timeupdate', this.onContentVideoTimeUpdated.bind(this));
+		videoElement.addEventListener('ended', this.onContentVideoEnded);
+		videoElement.addEventListener('timeupdate', this.onContentVideoTimeUpdated);
 		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
@@ -172,7 +176,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		videoElement.currentTime = "12.00";
 		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
 		console.log("===========resume video after: " + contentPausedOn);
-		videoElement.addEventListener('ended', this.onContentVideoEnded.bind(this));
+		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
@@ -223,7 +227,7 @@ tv.freewheel.DemoPlayer.prototype = {
 
 			if (Math.abs(videoCurrentTime - slotTimePosition) < 0.5) {
 				contentPausedOn = videoElement.currentTime;
-				videoElement.removeEventListener('ended', this.onContentVideoEnded.bind(this));
+				videoElement.removeEventListener('ended', this.onContentVideoEnded);
 				document.removeEventListener("keydown", this.videoSpeedHandler);
 				videoElement.pause();
 				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
@@ -241,7 +245,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Unbind the event listener for detecting when the content video ends, and play postroll if any
 		if (contentState === "VIDEO_STATE_PLAYING") {
 			console.log("\n==============content ended==============\n");
-			videoElement.removeEventListener('ended', this.onContentVideoEnded.bind(this));
+			videoElement.removeEventListener('ended', this.onContentVideoEnded);
 			currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_COMPLETED);
 			this.contentState = tv.freewheel.SDK.VIDEO_STATE_COMPLETED
 			if(postrollSlots.length){
@@ -252,8 +256,8 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	cleanUp: function() {
 		// Clean up after postroll ended or content ended(no postroll)
-		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete.bind(this));
-		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded.bind(this));
+		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
+		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
 		if (currentAdContext) {
 			currentAdContext = null;
 			location.reload();
