@@ -119,6 +119,12 @@ tv.freewheel.DemoPlayer.prototype = {
 			this.fastForward();
 		} else if (event.keyCode === 37) {
 			this.rewind();
+		} else if (event.keyCode === 179) {
+			this.togglePlay();
+		} else if (event.keyCode === 228) {
+			this.fastForward();
+		} else if (event.keyCode === 227) {
+			this.rewind();
 		}
 	},
 
