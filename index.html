@@ -10,25 +10,34 @@
     <script type="text/javascript" src="http://adm.fwmrm.net/libs/adm/6.32.0/AdManager.js"></script>
     <script type="text/javascript" src="player.js"></script>
     <style type="text/css">
-    	#videoPlayer {
-    		height: 480px;
-    		width: 720px;
-    		background-color: #000;
-    	}
         #displayBase {
             margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #videoPlayer {
+            min-width: 100%;
+            min-height: 100%;
+
+            width: auto;
+            height: auto;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
         }
     </style>
   </head>
   <body>
-    <div style="margin: 50px">
-        <div class="row">
-            <div id="displayBase">
-                <video id="videoPlayer" poster="poster.jpg">
-                    <source src="video.mp4" type="video/mp4"></source>
-                </video>
-            </div>
-        </div>
+    <div id="displayBase">
+        <video id="videoPlayer" poster="poster.jpg">
+            <source src="video.mp4" type="video/mp4"></source>
+        </video>
     </div>
 	<script type="text/javascript">
     $(function() {
