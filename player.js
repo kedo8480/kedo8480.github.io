@@ -37,6 +37,7 @@ tv.freewheel.DemoPlayer = function() {
 	currentAdContext.setVideoAsset(theVideoAssetId,theVideoDuration);
 	currentAdContext.setSiteSection(theSiteSectionId);
 
+	// Setting up listeners
 	this.videoSpeedHandler = this.videoSpeedHandler.bind(this);
 	this.onRequestComplete = this.onRequestComplete.bind(this);
 	this.onSlotEnded = this.onSlotEnded.bind(this);
@@ -56,6 +57,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 12);
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
+		// Add Target Key Value
 		currentAdContext.addKeyValue("kelseyTargeting", "kdowd");
 
 		// Let context object knows where to render the ad
@@ -97,46 +99,40 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
+	videoSpeedHandler: function(event) {
+		switch (event.keyCode) {
+			case 32:
+			case 179:
+			case 13:
+				this.togglePlay();
+				break;
+			case 39:
+			case 228:
+				this.fastForward();
+				break;
+			case 37:
+			case 227:
+				this.rewind();
+				break;
+		}
+	},
+
 	togglePlay: function() {
 		if (videoNotStarted == true){
 			videoNotStarted = false;
-			console.log("YOU ARE HERE AT BEGINNING OF PLAY CYCLE");
 			this.playback();
 		} else if (videoElement.paused || videoElement.ended) {
-			console.log("YOU PLAYED THE VIDEO AFTER PAUSING");
 			videoElement.play();
 		} else {
-			console.log("YOU PAUSED THE VIDEO");
 			videoElement.pause();
 		}
 	},
 
-	videoSpeedHandler: function(event) {
-		console.log("***************A THING WAS PRESSED****************");
-		if (event.keyCode === 32) {
-			this.togglePlay();
-		} else if (event.keyCode === 39) {
-			this.fastForward();
-		} else if (event.keyCode === 37) {
-			this.rewind();
-		} else if (event.keyCode === 179) {
-			this.togglePlay();
-		} else if (event.keyCode === 228) {
-			this.fastForward();
-		} else if (event.keyCode === 227) {
-			this.rewind();
-		} else if (event.keyCode === 13) {
-			this.togglePlay();
-		}
-	},
-
 	fastForward: function() {
-		console.log("YOU ARE INSIDE FF");
 		videoElement.currentTime += 5;
 	},
 
 	rewind: function() {
-		console.log("YOU ARE INSIDE REWIND");
 		videoElement.currentTime -= 5;
 	},
 
