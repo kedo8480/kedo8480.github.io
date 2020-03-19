@@ -58,7 +58,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
 		// Add Target Key Value
-		currentAdContext.addKeyValue("kelseyTargeting", "kdowd");
+		currentAdContext.addKeyValue("kelseyTargeting", "dash");
 
 		// Let context object knows where to render the ad
 		var theDisplayBaseId = "displayBase";
