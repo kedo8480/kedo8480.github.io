@@ -4,6 +4,7 @@ FreeWheel
 
 var tv = tv || {};
 tv.freewheel = tv.freewheel || {};
+tv.freewheel.SDK.setLogLevel(2);
 tv.freewheel.DemoPlayer = function() {
 
 	// Step #1: Obtain content metadata
