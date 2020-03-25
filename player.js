@@ -38,7 +38,7 @@ tv.freewheel.DemoPlayer = function() {
 	currentAdContext.setVideoAsset(theVideoAssetId,theVideoDuration);
 	currentAdContext.setSiteSection(theSiteSectionId);
 
-	// Setting up listeners
+	// Setting up bindings
 	this.videoSpeedHandler = this.videoSpeedHandler.bind(this);
 	this.onRequestComplete = this.onRequestComplete.bind(this);
 	this.onSlotEnded = this.onSlotEnded.bind(this);
@@ -55,11 +55,11 @@ tv.freewheel.DemoPlayer.prototype = {
 
 		// Add 1 preroll, 1 midroll, 1 postroll slot
 		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
-		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 12);
+		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 9);
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
 		// Add Target Key Value
-		currentAdContext.addKeyValue("kelseyTargeting", "dash");
+		currentAdContext.addKeyValue("kelseyTargeting", "kdowd");
 
 		// Let context object knows where to render the ad
 		var theDisplayBaseId = "displayBase";
@@ -77,6 +77,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Store corresponding content video state (PLAYING, COMPLETED, PAUSED)
 		contentState = "";
 
+		// Add listener for remote input
 		document.addEventListener("keydown", this.videoSpeedHandler);
 	},
 
@@ -100,24 +101,27 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
+	// Set up functions for both remote and keyboard inputs
 	videoSpeedHandler: function(event) {
 		switch (event.keyCode) {
-			case 32:
-			case 179:
-			case 13:
+			case 32: // Spacebar
+			case 179: // Play/Pause on Remote
+			case 13: // OK on Remote
 				this.togglePlay();
 				break;
-			case 39:
-			case 228:
+			case 39: // Right arrow key
+			case 228: // Fast Forward on Remote
 				this.fastForward();
 				break;
-			case 37:
-			case 227:
+			case 37: // Left arrow key
+			case 227: // Rewind on Remote
 				this.rewind();
 				break;
 		}
 	},
 
+	// Toggles between play and pause on video, if video has not started
+	// it starts playback with preroll content
 	togglePlay: function() {
 		if (videoNotStarted == true){
 			videoNotStarted = false;
@@ -129,10 +133,12 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
+	// Jumps video forward 5 seconds
 	fastForward: function() {
 		videoElement.currentTime += 5;
 	},
 
+	// Jumps video back by 5 seconds
 	rewind: function() {
 		videoElement.currentTime -= 5;
 	},
@@ -177,9 +183,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
-		console.log("BEFORE SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
-		videoElement.currentTime = "12.00";
-		console.log("AFTER SETTING CURRENT TIME: " + videoElement.currentTime + " CONTENT PAUSED ON: " + contentPausedOn);
+		videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		document.addEventListener("keydown", this.videoSpeedHandler);
@@ -228,7 +232,6 @@ tv.freewheel.DemoPlayer.prototype = {
 			var midrollSlot = midrollSlots[i];
 			var slotTimePosition = midrollSlot.getTimePosition();
 			var videoCurrentTime = videoElement.currentTime;
-			console.log("VIDEO CURRENT TIME: " + videoElement.currentTime);
 
 			if (Math.abs(videoCurrentTime - slotTimePosition) < 0.5) {
 				contentPausedOn = videoElement.currentTime;
