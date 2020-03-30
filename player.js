@@ -16,6 +16,8 @@ tv.freewheel.DemoPlayer = function() {
 	var theVideoDuration = 500;
 	adDataRequested = false;
 	currentAdContext = null;
+
+	// Used to determine if video has been started in togglePlay()
 	videoNotStarted = true;
 
 	// Step #2: Initialize AdManager
@@ -37,6 +39,9 @@ tv.freewheel.DemoPlayer = function() {
 	currentAdContext.setProfile(theProfileId);
 	currentAdContext.setVideoAsset(theVideoAssetId,theVideoDuration);
 	currentAdContext.setSiteSection(theSiteSectionId);
+
+	// Turn off ad click for Flex
+	currentAdContext.setParameter("renderer.video.clickDetection", false, tv.freewheel.SDK.PARAMETER_LEVEL_GLOBAL);
 
 	// Setting up bindings
 	this.videoSpeedHandler = this.videoSpeedHandler.bind(this);
@@ -183,6 +188,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
+		videoElement.load();
 		videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
