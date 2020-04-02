@@ -4,27 +4,26 @@ FreeWheel
 
 var tv = tv || {};
 tv.freewheel = tv.freewheel || {};
-tv.freewheel.SDK.setLogLevel(2);
 tv.freewheel.DemoPlayer = function() {
 
 	// Step #1: Obtain content metadata
-	var theNetworkId = 96749;
-	var theServerURL = "http://demo.v.fwmrm.net/ad/g/1";
-	var theProfileId = "96749:kelsey-js-player"
-	var theVideoAssetId = "defaultVideo";
-	var theSiteSectionId  = "defaultSite_defaultSection";
-	var theVideoDuration = 500;
+	var networkId = 96749;
+	var serverURL = "http://demo.v.fwmrm.net/ad/g/1";
+	var profileId = "96749:kelsey-js-player"
+	var videoAssetId = "defaultVideo";
+	var siteSectionId  = "defaultSite_defaultSection";
+	var videoDuration = 500;
 	adDataRequested = false;
 	currentAdContext = null;
 
 	// Used to determine if video has been started in togglePlay()
-	videoNotStarted = true;
+	videoStarted = false;
 
 	// Step #2: Initialize AdManager
 	// Only one AdManager instance is needed for each player
 	this.adManager = new tv.freewheel.SDK.AdManager();
-	this.adManager.setNetwork(theNetworkId);
-	this.adManager.setServer(theServerURL);
+	this.adManager.setNetwork(networkId);
+	this.adManager.setServer(serverURL);
 
 	// Saving content src to play after the preroll finishes
 	videoElement = document.getElementById('videoPlayer');
@@ -36,9 +35,9 @@ tv.freewheel.DemoPlayer = function() {
 
 	// Creating ad context
 	currentAdContext = this.adManager.newContext();
-	currentAdContext.setProfile(theProfileId);
-	currentAdContext.setVideoAsset(theVideoAssetId,theVideoDuration);
-	currentAdContext.setSiteSection(theSiteSectionId);
+	currentAdContext.setProfile(profileId);
+	currentAdContext.setVideoAsset(videoAssetId,videoDuration);
+	currentAdContext.setSiteSection(siteSectionId);
 
 	// Turn off ad click for Flex
 	currentAdContext.setParameter("renderer.video.clickDetection", false, tv.freewheel.SDK.PARAMETER_LEVEL_GLOBAL);
@@ -67,8 +66,8 @@ tv.freewheel.DemoPlayer.prototype = {
 		currentAdContext.addKeyValue("kelseyTargeting", "dash");
 
 		// Let context object knows where to render the ad
-		var theDisplayBaseId = "displayBase";
-		currentAdContext.registerVideoDisplayBase(theDisplayBaseId);
+		var displayBaseId = "displayBase";
+		currentAdContext.registerVideoDisplayBase(displayBaseId);
 
 		// Step #4: Submit ad request
 
@@ -91,8 +90,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// After request completes, store each roll in corresponding slot array
 		if (event.success) {
 			var fwTemporalSlots = currentAdContext.getTemporalSlots();
-		    for (var i = 0; i < fwTemporalSlots.length; i++)
-		    {
+		    for (var i = 0; i < fwTemporalSlots.length; i++) {
 		     	var slot = fwTemporalSlots[i];
 		     	var slotTimePositionClass = slot.getTimePositionClass();
 		     	if (slotTimePositionClass == tv.freewheel.SDK.TIME_POSITION_CLASS_PREROLL) {
@@ -128,8 +126,8 @@ tv.freewheel.DemoPlayer.prototype = {
 	// Toggles between play and pause on video, if video has not started
 	// it starts playback with preroll content
 	togglePlay: function() {
-		if (videoNotStarted == true){
-			videoNotStarted = false;
+		if (videoStarted == false){
+			videoStarted = true;
 			this.playback();
 		} else if (videoElement.paused || videoElement.ended) {
 			videoElement.play();
@@ -188,7 +186,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
-		videoElement.load();
 		videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
