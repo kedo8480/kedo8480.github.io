@@ -138,11 +138,13 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	// Jumps video forward 5 seconds
 	fastForward: function() {
+		console.log("____________FAST FORWARD PRESSED____________");
 		videoElement.currentTime += 5;
 	},
 
 	// Jumps video back by 5 seconds
 	rewind: function() {
+		console.log("____________REWIND PRESSED____________");
 		videoElement.currentTime -= 5;
 	},
 
@@ -186,13 +188,23 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Resume playing content from when the midroll cue
 		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
-		videoElement.currentTime = contentPausedOn;
+		videoElement.onloadeddata = (event) => {
+			console.log('Yay! The readyState just increased to  ' + 
+				'HAVE_CURRENT_DATA or greater for the first time.');
+			videoElement.currentTime = contentPausedOn;
+			videoElement.play();
+		};
+		// console.log("____________videoElement.play()____________");
+		// videoElement.play();
+		// console.log("____________fastForward()____________");
+		// this.fastForward();
+		// videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
-		videoElement.play();
+		//videoElement.play();
 	},
 
 	// Step #8: Play postroll advertisements when content ends
