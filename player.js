@@ -60,7 +60,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		// Add 1 preroll, 1 midroll, 1 postroll slot
 		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
 		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 20);
-		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 643);
+		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 653);
 
 		// Add Target Key Value
 		currentAdContext.addKeyValue("xfinityTargeting", "targetingTest");
@@ -138,16 +138,14 @@ tv.freewheel.DemoPlayer.prototype = {
 		}
 	},
 
-	// Jumps video forward 5 seconds
+	// Jumps video forward 15 seconds
 	fastForward: function() {
-		console.log("____________FAST FORWARD PRESSED____________");
-		videoElement.currentTime += 5;
+		videoElement.currentTime += 15;
 	},
 
 	// Jumps video back by 5 seconds
 	rewind: function() {
-		console.log("____________REWIND PRESSED____________");
-		videoElement.currentTime -= 5;
+		videoElement.currentTime -= 15;
 	},
 
 	// Step #5: Play preroll
@@ -175,6 +173,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	// Step #6: Play content video
 	playContent: function() {
 		// Play video content, and add event listener to trigger when video time updates or video content ends
+		videoElement.controls = true;
 		videoElement.src = contentSrc;
 		console.log("\n==============playing content==============\n");
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
@@ -187,6 +186,7 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	resumeContentAfterMidroll: function() {
 		// Resume playing content from when the midroll cue
+		videoElement.controls = true;
 		videoElement.src = contentSrc;
 		videoElement.onloadeddata = (event) => {
 			console.log('Yay! The readyState just increased to  ' + 
