@@ -59,8 +59,8 @@ tv.freewheel.DemoPlayer.prototype = {
 
 		// Add 1 preroll, 1 midroll, 1 postroll slot
 		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
-		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 9);
-		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
+		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 20);
+		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 643);
 
 		// Add Target Key Value
 		currentAdContext.addKeyValue("xfinityTargeting", "targetingTest");
@@ -175,7 +175,6 @@ tv.freewheel.DemoPlayer.prototype = {
 	// Step #6: Play content video
 	playContent: function() {
 		// Play video content, and add event listener to trigger when video time updates or video content ends
-		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
 		console.log("\n==============playing content==============\n");
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
@@ -188,7 +187,6 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	resumeContentAfterMidroll: function() {
 		// Resume playing content from when the midroll cue
-		$.each(videoElement, function(){ videoElement.controls = true; });
 		videoElement.src = contentSrc;
 		videoElement.onloadeddata = (event) => {
 			console.log('Yay! The readyState just increased to  ' + 
@@ -196,17 +194,11 @@ tv.freewheel.DemoPlayer.prototype = {
 			videoElement.currentTime = contentPausedOn;
 			videoElement.play();
 		};
-		// console.log("____________videoElement.play()____________");
-		// videoElement.play();
-		// console.log("____________fastForward()____________");
-		// this.fastForward();
-		// videoElement.currentTime = contentPausedOn;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
-		//videoElement.play();
 	},
 
 	// Step #8: Play postroll advertisements when content ends
