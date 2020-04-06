@@ -7,11 +7,11 @@ tv.freewheel = tv.freewheel || {};
 tv.freewheel.DemoPlayer = function() {
 
 	// Step #1: Obtain content metadata
-	var networkId = 96749;
-	var serverURL = "http://demo.v.fwmrm.net/ad/g/1";
-	var profileId = "96749:kelsey-js-player"
-	var videoAssetId = "defaultVideo";
-	var siteSectionId  = "defaultSite_defaultSection";
+	var networkId = 392025;
+	var serverURL = "https://5fb59.v.fwmrm.net/";
+	var profileId = "392025:flex-test-profile"
+	var videoAssetId = "xfinity_test_video";
+	var siteSectionId  = "xfinity_test_site_section";
 	var videoDuration = 500;
 	adDataRequested = false;
 	currentAdContext = null;
@@ -63,7 +63,9 @@ tv.freewheel.DemoPlayer.prototype = {
 		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 60);
 
 		// Add Target Key Value
-		currentAdContext.addKeyValue("kelseyTargeting", "dash");
+		currentAdContext.addKeyValue("xfinityTargeting", "targetingTest");
+
+		currentAdContext.setCapability(tv.freewheel.SDK.CAPABILITY_SLOT_TEMPLATE, tv.freewheel.SDK.CAPABILITY_STATUS_OFF);
 
 		// Let context object knows where to render the ad
 		var displayBaseId = "displayBase";
