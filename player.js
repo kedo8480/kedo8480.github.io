@@ -189,8 +189,6 @@ tv.freewheel.DemoPlayer.prototype = {
 		videoElement.controls = true;
 		videoElement.src = contentSrc;
 		videoElement.onloadeddata = (event) => {
-			console.log('Yay! The readyState just increased to  ' + 
-				'HAVE_CURRENT_DATA or greater for the first time.');
 			videoElement.currentTime = contentPausedOn;
 			videoElement.play();
 		};
