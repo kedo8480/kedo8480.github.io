@@ -19,6 +19,9 @@ tv.freewheel.DemoPlayer = function() {
 	// Used to determine if video has been started in togglePlay()
 	videoStarted = false;
 
+	// Used to determine if an ad is playing
+	adPlaying = false;
+
 	// Step #2: Initialize AdManager
 	// Only one AdManager instance is needed for each player
 	this.adManager = new tv.freewheel.SDK.AdManager();
@@ -140,12 +143,16 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	// Jumps video forward 15 seconds
 	fastForward: function() {
-		videoElement.currentTime += 15;
+		if (adPlaying == false) {
+			videoElement.currentTime += 15;
+		}
 	},
 
 	// Jumps video back by 5 seconds
 	rewind: function() {
-		videoElement.currentTime -= 15;
+		if (adPlaying == false) {
+			videoElement.currentTime -= 15;
+		}
 	},
 
 	// Step #5: Play preroll
@@ -161,7 +168,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	playPreroll: function() {
 		// Play preroll slot and then remove the played slot from preroll slot array
 		if (prerollSlots.length) {
-			document.removeEventListener("keydown", this.videoSpeedHandler);
+			adPlaying = true;
 			console.log("\n==============playing preroll==============\n");
 			prerollSlots.shift().play();
 		} else {
@@ -176,9 +183,9 @@ tv.freewheel.DemoPlayer.prototype = {
 		videoElement.controls = true;
 		videoElement.src = contentSrc;
 		console.log("\n==============playing content==============\n");
+		adPlaying = false;
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		videoElement.addEventListener('timeupdate', this.onContentVideoTimeUpdated);
-		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 		videoElement.play();
@@ -192,9 +199,9 @@ tv.freewheel.DemoPlayer.prototype = {
 			videoElement.currentTime = contentPausedOn;
 			videoElement.play();
 		};
+		adPlaying = false;
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
-		document.addEventListener("keydown", this.videoSpeedHandler);
 		contentState = "VIDEO_STATE_PLAYING";
 		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 	},
@@ -203,7 +210,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	playPostroll: function() {
 		// Play postroll(s) if exits, otherwise cleanup
 		if (postrollSlots.length) {
-			document.removeEventListener("keydown", this.videoSpeedHandler);
+			adPlaying = true;
 			console.log("\n==============playing postroll==============\n");
 			postrollSlots.shift().play();
 		} else {
@@ -242,8 +249,8 @@ tv.freewheel.DemoPlayer.prototype = {
 
 			if (Math.abs(videoCurrentTime - slotTimePosition) < 0.5) {
 				contentPausedOn = videoElement.currentTime;
+				adPlaying = true;
 				videoElement.removeEventListener('ended', this.onContentVideoEnded);
-				document.removeEventListener("keydown", this.videoSpeedHandler);
 				videoElement.pause();
 				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
 				contentState = "VIDEO_STATE_PAUSED";
