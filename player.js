@@ -22,6 +22,9 @@ tv.freewheel.DemoPlayer = function() {
 	// Used to determine if an ad is playing
 	adPlaying = false;
 
+	// Used to keep track of current slot playing
+	currentSlot = null;
+
 	// Step #2: Initialize AdManager
 	// Only one AdManager instance is needed for each player
 	this.adManager = new tv.freewheel.SDK.AdManager();
@@ -136,8 +139,14 @@ tv.freewheel.DemoPlayer.prototype = {
 			this.playback();
 		} else if (videoElement.paused || videoElement.ended) {
 			videoElement.play();
+			if (adPlaying == true) {
+				currentSlot.resume();
+			}
 		} else {
 			videoElement.pause();
+			if (adPlaying == true) {
+				currentSlot.pause();
+			}
 		}
 	},
 
@@ -170,7 +179,8 @@ tv.freewheel.DemoPlayer.prototype = {
 		if (prerollSlots.length) {
 			adPlaying = true;
 			console.log("\n==============playing preroll==============\n");
-			prerollSlots.shift().play();
+			currentSlot = prerollSlots.shift();
+			currentSlot.play();
 		} else {
 			// When there are no more preroll slots to play, play content
 			this.playContent();
@@ -212,7 +222,8 @@ tv.freewheel.DemoPlayer.prototype = {
 		if (postrollSlots.length) {
 			adPlaying = true;
 			console.log("\n==============playing postroll==============\n");
-			postrollSlots.shift().play();
+			currentSlot = postrollSlots.shift();
+			currentSlot.play();
 		} else {
 			this.cleanUp();
 		}
@@ -254,8 +265,8 @@ tv.freewheel.DemoPlayer.prototype = {
 				videoElement.pause();
 				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
 				contentState = "VIDEO_STATE_PAUSED";
-				midrollSlots.splice(i, 1);
-				midrollSlot.play();
+				currentSlot = midrollSlots.shift();
+				currentSlot.play();
 				return;
 			}
 
