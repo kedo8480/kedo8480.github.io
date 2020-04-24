@@ -1,6 +1,7 @@
 /*
 FreeWheel
 */
+//const adm = require("/JS_AdManagerDistribution/release/AdManager.js");
 
 var tv = tv || {};
 tv.freewheel = tv.freewheel || {};
@@ -14,7 +15,7 @@ tv.freewheel.DemoPlayer = function() {
 	var siteSectionId  = "xfinity_test_site_section";
 	var videoDuration = 500;
 	adDataRequested = false;
-	currentAdContext = null;
+	// this.currentAdContext = null;
 
 	// Used to determine if video has been started in togglePlay()
 	videoStarted = false;
@@ -40,13 +41,13 @@ tv.freewheel.DemoPlayer = function() {
 	contentPausedOn = 0;
 
 	// Creating ad context
-	currentAdContext = this.adManager.newContext();
-	currentAdContext.setProfile(profileId);
-	currentAdContext.setVideoAsset(videoAssetId,videoDuration);
-	currentAdContext.setSiteSection(siteSectionId);
+	this.currentAdContext = this.adManager.newContext();
+	this.currentAdContext.setProfile(profileId);
+	this.currentAdContext.setVideoAsset(videoAssetId,videoDuration);
+	this.currentAdContext.setSiteSection(siteSectionId);
 
 	// Turn off ad click for Flex
-	currentAdContext.setParameter("renderer.video.clickDetection", false, tv.freewheel.SDK.PARAMETER_LEVEL_GLOBAL);
+	this.currentAdContext.setParameter("renderer.video.clickDetection", false, tv.freewheel.SDK.PARAMETER_LEVEL_GLOBAL);
 
 	// Setting up bindings
 	this.videoSpeedHandler = this.videoSpeedHandler.bind(this);
@@ -64,27 +65,27 @@ tv.freewheel.DemoPlayer.prototype = {
 		midrollSlots = [];
 
 		// Add 1 preroll, 1 midroll, 1 postroll slot
-		currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
-		currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 20);
-		currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 653);
+		this.currentAdContext.addTemporalSlot("Preroll", tv.freewheel.SDK.ADUNIT_PREROLL, 0);
+		this.currentAdContext.addTemporalSlot("Midroll", tv.freewheel.SDK.ADUNIT_MIDROLL, 20);
+		this.currentAdContext.addTemporalSlot("Postroll", tv.freewheel.SDK.ADUNIT_POSTROLL, 653);
 
 		// Add Target Key Value
-		currentAdContext.addKeyValue("xfinityTargeting", "targetingTest");
+		this.currentAdContext.addKeyValue("xfinityTargeting", "targetingTest");
 
-		currentAdContext.setCapability(tv.freewheel.SDK.CAPABILITY_SLOT_TEMPLATE, tv.freewheel.SDK.CAPABILITY_STATUS_OFF);
+		this.currentAdContext.setCapability(tv.freewheel.SDK.CAPABILITY_SLOT_TEMPLATE, tv.freewheel.SDK.CAPABILITY_STATUS_OFF);
 
 		// Let context object knows where to render the ad
 		var displayBaseId = "displayBase";
-		currentAdContext.registerVideoDisplayBase(displayBaseId);
+		this.currentAdContext.registerVideoDisplayBase(displayBaseId);
 
 		// Step #4: Submit ad request
 
 		// Listen to AdManager Events
-		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
-		currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
+		this.currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
+		this.currentAdContext.addEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
 
 		// Submit ad request
-		currentAdContext.submitRequest();
+		this.currentAdContext.submitRequest();
 
 		// Store corresponding content video state (PLAYING, COMPLETED, PAUSED)
 		contentState = "";
@@ -97,7 +98,7 @@ tv.freewheel.DemoPlayer.prototype = {
 	onRequestComplete: function(event) {
 		// After request completes, store each roll in corresponding slot array
 		if (event.success) {
-			var fwTemporalSlots = currentAdContext.getTemporalSlots();
+			var fwTemporalSlots = this.currentAdContext.getTemporalSlots();
 		    for (var i = 0; i < fwTemporalSlots.length; i++) {
 		     	var slot = fwTemporalSlots[i];
 		     	var slotTimePositionClass = slot.getTimePositionClass();
@@ -197,7 +198,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		videoElement.addEventListener('timeupdate', this.onContentVideoTimeUpdated);
 		contentState = "VIDEO_STATE_PLAYING";
-		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
+		this.currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 		videoElement.play();
 	},
 
@@ -213,7 +214,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		console.log("===========resume video after: " + contentPausedOn);
 		videoElement.addEventListener('ended', this.onContentVideoEnded);
 		contentState = "VIDEO_STATE_PLAYING";
-		currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
+		this.currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PLAYING);
 	},
 
 	// Step #8: Play postroll advertisements when content ends
@@ -263,7 +264,7 @@ tv.freewheel.DemoPlayer.prototype = {
 				adPlaying = true;
 				videoElement.removeEventListener('ended', this.onContentVideoEnded);
 				videoElement.pause();
-				currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
+				this.currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_PAUSED);
 				contentState = "VIDEO_STATE_PAUSED";
 				currentSlot = midrollSlots.shift();
 				currentSlot.play();
@@ -279,7 +280,7 @@ tv.freewheel.DemoPlayer.prototype = {
 		if (contentState === "VIDEO_STATE_PLAYING") {
 			console.log("\n==============content ended==============\n");
 			videoElement.removeEventListener('ended', this.onContentVideoEnded);
-			currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_COMPLETED);
+			this.currentAdContext.setVideoState(tv.freewheel.SDK.VIDEO_STATE_COMPLETED);
 			this.contentState = tv.freewheel.SDK.VIDEO_STATE_COMPLETED
 			if(postrollSlots.length){
 				this.playPostroll();
@@ -289,10 +290,10 @@ tv.freewheel.DemoPlayer.prototype = {
 
 	cleanUp: function() {
 		// Clean up after postroll ended or content ended(no postroll)
-		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
-		currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
-		if (currentAdContext) {
-			currentAdContext = null;
+		this.currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_REQUEST_COMPLETE,this.onRequestComplete);
+		this.currentAdContext.removeEventListener(tv.freewheel.SDK.EVENT_SLOT_ENDED,this.onSlotEnded);
+		if (this.currentAdContext) {
+			this.currentAdContext = null;
 			location.reload();
 		}
 	}

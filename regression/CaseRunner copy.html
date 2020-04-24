@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Jasmine Spec Runner v2.8.0</title>
+
+	<link rel="shortcut icon" type="image/png" href="lib/jasmine-2.8.0/jasmine_favicon.png">
+	<link rel="stylesheet" href="lib/jasmine-2.8.0/jasmine.css">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="lib/jasmine-2.8.0/jasmine.js"></script>
+	<script src="lib/jasmine-2.8.0/jasmine-html.js"></script>
+	<script src="lib/jasmine-2.8.0/boot.js"></script>
+
+	<!-- include source files here... -->
+	<script src="src/AdManager-uncompressed.js"></script>
+	<script src="src/FunctionalTestPlayer.js"></script>
+	<script src="spec/SpecHelper.js"></script>
+</head>
+
+<body>
+	<div id="displayBase">
+		<!-- Add "muted" to the video element when running the regression on mobile browsers -->
+		<video id="videoPlayer" playsinline width="480" height="270" src="http://m1.fwmrm.net/m/1/90750/39/1624999/222991497_1423862435_42824_7.mp4">
+		</video>
+		<div id="displaySlotsDiv">
+		</div>
+	</div>
+	<!-- include case files here...-->
+	<script src="spec/FWCase404TypeBAdRequest.js"></script>
+	<script src="spec/FWCase050CompanionAds.js"></script>
+	<script src="spec/FWCase414VAST4Macros.js"></script>
+	<script src="spec/FWCase033SlotPlayback.js"></script>
+	<script src="spec/FWCase403SkipCurrentAd.js"></script>
+	<script src="spec/FWCase405setAdVolume.js"></script>
+	<script src="spec/FWCase406AdInstanceBuffering.js"></script>
+	<script src="spec/FWCase407AdInstanceInitiated.js"></script>
+	<script src="spec/FWCase408videoRendererClickEvent.js"></script>
+	<script src="spec/FWCase409DisplayRefresh.js"></script>
+	<script src="spec/FWCase411creativeData.js"></script>
+	<script src="spec/FWCase418AdReplicaId.js"></script>
+	<script src="spec/FWCaseHTMLRenderer01OverlayPlayback.js"></script>
+	<script src="spec/FWCaseHTMLRenderer04DisplayAd.js"></script>
+	<script src="spec/FWCase410ContentVideoPauseAndResumeRequest.js"></script>
+	<script src="spec/FWCaseVASTTranslator01VAST2SingleAd.js"></script>
+	<script src="spec/FWCaseVASTTranslator02VAST3SingleAd.js"></script>
+	<script src="spec/FWCaseVASTTranslator03VAST4SingleAd.js"></script>
+	<script src="spec/FWCase415concreteEvent.js"></script>
+	<script src="spec/FWCase416Resize.js"></script>
+	<script src="spec/FWCaseVPAIDRenderer01BadCreatives.js"></script>
+	<script src="spec/FWCaseVASTTranslator04VASTErrors.js"></script>
+	<script src="spec/FWCaseHTMLRenderer02VASTErrorReporting.js"></script>
+	<script src="spec/FWCaseVPAIDRenderer02VASTErrorReporting.js"></script>
+	<script src="spec/FWCaseVideoRenderer02VASTError.js"></script>
+	<script src="spec/FWCaseHTMLRenderer03MRAID.js"></script>
+	<script src="spec/FWCaseVideoRenderer03AdAutoPlayBlockedEvent.js"></script>
+	<script src="spec/FWCase419VisibilityChange.js"></script>
+	<script src="spec/FWCaseCMPNormalData.js"></script>
+	<script src="spec/FWCaseCMPMalformedData.js"></script>
+	<script src="spec/FWCaseCMPMissingData.js"></script>
+	<script src="spec/FWCaseCMPGetTopMostWindow.js"></script>
+	<script src="spec/FWCaseVPAIDRenderer03TestDisableCORSEnforcementParameter.js"></script>
+	<script src="spec/FWCaseExtensionManagerLoadingExtensionTimesOut.js"></script>
+	<script src="spec/FWCaseExtensionManagerLoadingNullExtensionURL.js"></script>
+	<script src="spec/FWCaseExtensionManagerLoadingDuplicateExtension.js"></script>
+	<script src="spec/FWCaseExtensionManagerAutoLoadExtension.js"></script>
+	<script src="spec/FWCaseAdInatance01GetParameter.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+    "scripts": {
+        "test": "nyc mocha -r jsdom-global/register",
+        "coverage": "nyc mocha"
+    },
+    "dependencies": {
+        "chai": "^4.2.0",
+        "chrome-launcher": "^0.13.1",
+        "jasmine": "^3.5.0",
+        "jsdom": "^16.2.2",
+        "jsdom-global": "^3.0.2",
+        "karma": "^5.0.2",
+        "karma-cli": "^2.0.0",
+        "karma-coverage": "^2.0.2",
+        "karma-jasmine": "^3.1.1",
+        "karma-junit-reporter": "^2.0.1",
+        "mocha": "^7.1.1",
+        "nyc": "^15.0.1",
+        "rewire": "^5.0.0",
+        "sinon": "^9.0.2"
+    }
+}

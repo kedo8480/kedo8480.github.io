@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Jasmine Spec Runner v2.8.0</title>
+
+	<link rel="shortcut icon" type="image/png" href="lib/jasmine-2.8.0/jasmine_favicon.png">
+	<link rel="stylesheet" href="lib/jasmine-2.8.0/jasmine.css">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="lib/jasmine-2.8.0/jasmine.js"></script>
+	<script src="lib/jasmine-2.8.0/jasmine-html.js"></script>
+	<script src="lib/jasmine-2.8.0/boot.js"></script>
+
+	<!-- include source files here... -->
+	<script src="src/AdManager-uncompressed.js"></script>
+	<script src="src/FunctionalTestPlayer.js"></script>
+	<script src="spec/SpecHelper.js"></script>
+</head>
+
+<body>
+	<div id="displayBase">
+		<!-- Add "muted" to the video element when running the regression on mobile browsers -->
+		<video id="videoPlayer" playsinline width="480" height="270" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">
+		</video>
+		<div id="displaySlotsDiv">
+		</div>
+	</div>
+	<!-- include case files here...-->
+	<script src="spec/FWCase033SlotPlayback.js"></script>
+</body>
+</html>
